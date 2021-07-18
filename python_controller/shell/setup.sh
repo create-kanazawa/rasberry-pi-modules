@@ -1,17 +1,21 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 #FTPサーバ Vsftpd環境の作成
+echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
-'-----------change by setup.bash-----------'>>FTP_CONFIG_TRGET #configファイルの書き換え
-'local_enable=YES'>>FTP_CONFIG_TRGET
-'write_enable=YES'>>FTP_CONFIG_TRGET
-'local_umask=022'>>FTP_CONFIG_TRGET
-'ascii_upload_enable=YES'>>FTP_CONFIG_TRGET
-'ascii_download_enable=YES'>>FTP_CONFIG_TRGET
+TIME=$(date)
+echo "-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'write_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'local_umask=022' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'ascii_upload_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'ascii_download_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+cat $FTP_CONFIG_TRGET
 sudo service vsftpd start #FTPサーバの再起動
 
 # pipでファイル管理モジュールwatchdogをインストール(python2.7はバージョン1.0.0以下を指定)
+echo '-----------install watchdog-----------'
 pip install watchdog==0.10.6
 
 #PHP server setup
