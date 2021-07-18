@@ -15,6 +15,7 @@ from subprocess import PIPE
 import os
 import time
 import sys
+import pigpio
 
 # PatternMatchingEventHandler の継承クラスを作成
 class ProcessHandlerByFTP(PatternMatchingEventHandler):
@@ -67,19 +68,31 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
 
      def start_main_process(self):
          print("start the main process")
-         self.proc = sp.Popen(['python', 'scripts/'+self.target_main])
+         self.proc = sp.Popen(['python3', 'scripts/'+self.target_main])
          print("subprocess ID:")
 
      def stop_main_process(self):
-         self.proc.kill()
+         try:
+             self.proc.kill()
+         except:
+             print("")
 
      def reset_robot(self):
+         pi = pigpio.pi()
+         servo_pin1 = 18                      #thetaのモータGPIOピン設定
+         servo_pin2 = 19                      #th1のモータGPIOピン設定
+         servo_pin3 = 16                      #th2のモータGPIOピン設定
+         pi.set_mode(servo_pin1, pigpio.INPUT)
+         pi.set_mode(servo_pin2, pigpio.INPUT)
+         pi.set_mode(servo_pin3, pigpio.INPUT)
+         pi.stop()
          print("reset completed")
 
      def action_by_status(self,filename):
          print("-------------on action_by_status():-------------")
+         #################when main script update#################
          if filename == self.target_main:#when main script update
-             if self.status == self.status_number["wait_update"]:
+             if self.status == self.status_number["wait_update"] or self.status == self.status_number["wait_start"] or self.status == self.status_number["emergency_stop"]:
                  print("transport status wait_start")
                  self.status = self.status_number["wait_start"]
              elif self.status == self.status_number["on_execute"]:
@@ -90,24 +103,33 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
                      print("error: main process is still run. please wait or stop by command")
              else:
                  print("error: status number is",self.status)
+         ##################when file "start" send##################
          elif filename == self.target_start:#when file "start" send
              if self.status == self.status_number["wait_start"]:
                  print("transport status on_execute")
                  self.status = self.status_number["on_execute"]
                  self.start_main_process()
+             elif self.status == self.status_number["on_execute"]:
+                 if self.proc.poll() != None:
+                     print("transport status on_execute")
+                     self.start_main_process()
+                 else:
+                     print("error: main process is still run. please wait or stop by command")
              else:
                  print("error: status number is",self.status)
+         ##################when file "stop" send##################
          elif filename == self.target_end:#when file "stop" send
-             if self.status == self.status_number["on_execute"]:
+             if self.status == self.status_number["on_execute"] or self.status == self.status_number["wait_update"]:
                  print("transport status emergency_stop")
                  self.status = self.status_number["emergency_stop"]
                  self.stop_main_process()
+                 self.reset_robot()
              else:
                  print("error: status number is",self.status)
-         elif filename == self.target_reset:#when file "reset" send
-             if self.status == self.status_number["emergency_stop"]:
-                 self.status = self.status_number["wait_update"]
-                 self.reset_robot()
+#         elif filename == self.target_reset:#when file "reset" send
+#             if self.status == self.status_number["emergency_stop"]:
+#                 self.status = self.status_number["wait_update"]
+
          else:
              print("unexpected file ")
 
@@ -117,8 +139,8 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
 if __name__ == "__main__":
      print("debug start")
      #このpythonファイルが存在するパスを取得する
-     #this_path = os.path.dirname(os.path.abspath(__file__))
-     this_path = "/var/www"
+     this_path = os.path.dirname(os.path.abspath(__file__))
+     # this_path = "/var/www"
      print("this_path:",this_path)
      # 監視対象ディレクトリを指定する
      target_dir=this_path + "/scripts/"
