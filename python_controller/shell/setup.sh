@@ -1,8 +1,15 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 #FTPサーバ Vsftpd環境の作成
-sudo apt install vsftpd　
-sudo service vsftpd start
+sudo apt install vsftpd #FTPサーバのインストール
+FTP_CONFIG_TRGET=/etc/vsftpd.conf
+'-----------change by setup.bash-----------'>>FTP_CONFIG_TRGET #configファイルの書き換え
+'local_enable=YES'>>FTP_CONFIG_TRGET
+'write_enable=YES'>>FTP_CONFIG_TRGET
+'local_umask=022'>>FTP_CONFIG_TRGET
+'ascii_upload_enable=YES'>>FTP_CONFIG_TRGET
+'ascii_download_enable=YES'>>FTP_CONFIG_TRGET
+sudo service vsftpd start #FTPサーバの再起動
 
 # pipでファイル管理モジュールwatchdogをインストール(python2.7はバージョン1.0.0以下を指定)
 pip install watchdog==0.10.6
