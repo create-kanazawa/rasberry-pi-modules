@@ -5,7 +5,7 @@ echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
 TIME=$(date)
-echo "-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'write_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'local_umask=022' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
