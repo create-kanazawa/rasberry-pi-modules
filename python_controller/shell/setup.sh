@@ -4,6 +4,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
+SHORTCUT_BASH=~/start_communication.bash
 TIME=$(date)
 echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
@@ -13,6 +14,10 @@ echo 'ascii_upload_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'ascii_download_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 cat $FTP_CONFIG_TRGET
 sudo service vsftpd start #FTPサーバの再起動
+
+# ショートカット用bashファイルの作成
+echo "cd "$SCRIPT_DIR>$SHORTCUT_BASH
+echo "python3 processControlMain.py">>$SHORTCUT_BASH
 
 # pipでファイル管理モジュールwatchdogをインストール(python2.7はバージョン1.0.0以下を指定)
 echo '-----------install watchdog-----------'
