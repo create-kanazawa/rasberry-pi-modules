@@ -11,7 +11,8 @@ FTP通信を行うモジュールを保管中
 cd ~/
 git clone git@github.com:create-kanazawa/rasberry-pi-modules.git
 ```
-#### bashの実
+#### bashの実行
+bashファイルを実行して，FTPサーバのインストールとconfigファイルの編集を行う
 ```
 cd ~/rasberry-pi-modules/python_controller
 bash shell/setup.sh
