@@ -4,6 +4,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
+sudo cp $FTP_CONFIG_TRGET $FTP_CONFIG_TRGET'-default'
 TIME=$(date)
 echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
 echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
@@ -15,13 +16,15 @@ cat $FTP_CONFIG_TRGET
 sudo service vsftpd start #FTPサーバの再起動
 
 #####ショートカット用bashファイルの作成
-SHORTCUT_BASH=~/start_communication.bash
-echo "cd "$SCRIPT_DIR>$SHORTCUT_BASH
-echo "python3 processControlMain.py">>$SHORTCUT_BASH
+#echo '-----------install vsftpd-----------'
+#SHORTCUT_BASH=~/start_communication.bash
+#echo "cd "$SCRIPT_DIR>$SHORTCUT_BASH
+#echo "python3 processControlMain.py">>$SHORTCUT_BASH
 
 #####pipでファイル管理モジュールwatchdogをインストール(python2.7はバージョン1.0.0以下を指定)
 echo '-----------install watchdog-----------'
 pip install watchdog==0.10.6
+pip3 install watchdog
 
 ######PHP server setup
 #sudo apt update
@@ -45,11 +48,30 @@ pip install watchdog==0.10.6
 #sudo chmod -R 777 /var/www/
 
 ######set chmod of scripts/
+echo '-----------set chmod to scripts/-----------'
 sudo chmod -R 777 $SCRIPT_DIR/../scripts/
 
 ######setup UDP port
+echo '-----------setup UDP port-----------'
 sudo apt install ufw
+sudo ufw allow 22
 sudo ufw allow 60000
 sudo ufw allow 60001
+sudo ufw enable
+sudo ufw reload
 
-######
+######set autostart file
+echo '-----------setup auto start file-----------'
+cd ~/.config
+FTP_START_TARGET=ftp_start.desktop
+TARGET_SHELL=start_communication.bash
+mkdir autostart
+cd $_
+touch $FTP_START_TARGET
+#echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'Exec=lxterminal -e '$SCRIPT_DIR'/../shell/'$TARGET_SHELL | sudo tee -a $FTP_START_TARGET>/dev/null
+echo 'Type=Application' | sudo tee -a $FTP_START_TARGET>/dev/null
+echo 'Name=FTP_server' | sudo tee -a $FTP_START_TARGET>/dev/null
+echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
+
+
