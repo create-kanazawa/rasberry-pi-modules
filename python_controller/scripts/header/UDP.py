@@ -1,13 +1,15 @@
 import socket
 M_SIZE=1024
-client_port=60000
-server_port=60001
+recieve_port=60000
 client=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 server=socket.socket(socket.AF_INET,type=socket.SOCK_DGRAM)
-server.bind(('127.0.0.1',server_port))
+server.bind(('',recieve_port))
 
 #send block --> input IP and message
-#send_len=client.sendto(message.encode('utf-8'),(IP,client_port))
+#send_len=client.sendto(message.encode('utf-8'),(IP,recieve_port))
 
 #recieve block
 #rx_message,addr=server.recvfrom(M_SIZE)
+
+#get message string
+#rx_message.decode('utf-8')

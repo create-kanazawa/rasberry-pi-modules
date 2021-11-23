@@ -100,7 +100,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
              print('#----------footer----------\n',file=exe)
              file_list=glob.glob('scripts/footer/'+'*.py')
              for file in file_list:
-                 f=open('scripts/'+file,'r')
+                 f=open(file,'r')
                  print(f.read(),file=exe)
                  f.close()
                  
