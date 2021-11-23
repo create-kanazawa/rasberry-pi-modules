@@ -8,11 +8,11 @@ sys.path.append(this_path)
 from processControllerClass import *
 
 if __name__ == "__main__":
-     print("debug start")
+     print("FTP communication start...")
      #このpythonファイルが存在するパスを取得する
      this_path = os.path.dirname(os.path.abspath(__file__))
      # this_path = "/var/www"
-     print("this_path:",this_path)
+     print("waiting path for FTP is :",this_path)
      # 監視対象ディレクトリを指定する
      target_dir=this_path + "/scripts/"
      print(target_dir)

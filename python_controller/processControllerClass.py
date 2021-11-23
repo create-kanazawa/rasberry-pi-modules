@@ -78,14 +78,15 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
              print("")
 
      def reset_robot(self):
-         pi = pigpio.pi()
-         servo_pin1 = 18                      #thetaのモータGPIOピン設定
-         servo_pin2 = 19                      #th1のモータGPIOピン設定
-         servo_pin3 = 16                      #th2のモータGPIOピン設定
-         pi.set_mode(servo_pin1, pigpio.INPUT)
-         pi.set_mode(servo_pin2, pigpio.INPUT)
-         pi.set_mode(servo_pin3, pigpio.INPUT)
-         pi.stop()
+         self.proc = sp.Popen(['python3', 'scripts/'+self.target_end])
+         #pi = pigpio.pi()
+         #servo_pin1 = 18                      #thetaのモータGPIOピン設定
+         #servo_pin2 = 19                      #th1のモータGPIOピン設定
+         #servo_pin3 = 16                      #th2のモータGPIOピン設定
+         #pi.set_mode(servo_pin1, pigpio.INPUT)
+         #pi.set_mode(servo_pin2, pigpio.INPUT)
+         #pi.set_mode(servo_pin3, pigpio.INPUT)
+         #pi.stop()
          print("reset completed")
 
      def action_by_status(self,filename):
