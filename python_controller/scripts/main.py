@@ -7,7 +7,13 @@ while(i<20):
     i+=1
     time.sleep(1)
 
-print("ok man yeaaaahh!")
+print("ok man yeaaahh!")
 
+#send block --> input IP and message
+#message='abcedf'
+#IP='127.0.0.1'
+#send_len=client.sendto(message.encode('utf-8'),(IP,recieve_port))
+
+#recieve block -->None
 #rx_message,addr=server.recvfrom(M_SIZE)
-#send_len=client.sendto(message.encode('utf-8'),('127.0.0.1',recieve_port))
+#print(rx_message.decode('utf-8'))
