@@ -16,6 +16,7 @@ import os
 import time
 import sys
 import pigpio
+import glob
 
 # PatternMatchingEventHandler の継承クラスを作成
 class ProcessHandlerByFTP(PatternMatchingEventHandler):
@@ -30,6 +31,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
      target_start = 'start.py'
      target_end = 'stop.py'
      target_reset = 'reset.py'
+     target_exec = 'execute.py'
      proc = []
 
      # クラス初期化
@@ -68,7 +70,8 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
 
      def start_main_process(self):
          print("start the main process")
-         self.proc = sp.Popen(['python3', 'scripts/'+self.target_main])
+         self.make_execution_file()
+         self.proc = sp.Popen(['python3', 'scripts/'+self.target_exec])
          print("subprocess ID:")
 
      def stop_main_process(self):
@@ -77,6 +80,31 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
          except:
              print("")
 
+     def make_execution_file(self):
+         with open('scripts/'+self.target_exec,'w') as exe:
+             print('print(\'start main file...\')',file=exe)
+         with open('scripts/'+self.target_exec,'a') as exe:
+             print('#----------header----------\n',file=exe)
+             print("----concate header----")
+             file_list=glob.glob('scripts/header/'+'*.py')
+             for file in file_list:
+                 h=open(file,'r')
+                 print(h.read(),file=exe)
+                 h.close()
+             print("----concate main----")
+             print('#----------main----------\n',file=exe)
+             main=open('scripts/'+self.target_main,'r')
+             print(main.read(),file=exe)
+             main.close()
+             print("----concate footer----")
+             print('#----------footer----------\n',file=exe)
+             file_list=glob.glob('scripts/footer/'+'*.py')
+             for file in file_list:
+                 f=open('scripts/'+file,'r')
+                 print(f.read(),file=exe)
+                 f.close()
+                 
+             
      def reset_robot(self):
          self.proc = sp.Popen(['python3', 'scripts/'+self.target_end])
          #pi = pigpio.pi()
@@ -130,7 +158,8 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
 #         elif filename == self.target_reset:#when file "reset" send
 #             if self.status == self.status_number["emergency_stop"]:
 #                 self.status = self.status_number["wait_update"]
-
+         elif filename == self.target_exec:#when execution file modified
+             print('')
          else:
              print("unexpected file ")
 
