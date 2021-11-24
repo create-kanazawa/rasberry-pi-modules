@@ -7,7 +7,7 @@ while(i<20):
     i+=1
     time.sleep(1)
 
-print("ok man yeaaahh!")
+print("ok man yeaaaaahh!")
 
 #send block --> input IP and message
 #message='abcedf'

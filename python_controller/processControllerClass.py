@@ -79,7 +79,6 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
              self.proc.kill()
          except:
              print("")
-
      def make_execution_file(self):
          with open('scripts/'+self.target_exec,'w') as exe:
              print('print(\'start main file...\')',file=exe)
@@ -91,6 +90,12 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
                  h=open(file,'r')
                  print(h.read(),file=exe)
                  h.close()
+             with open('temp.txt','r') as temp:
+                 folder_data=temp.readlines()
+                 for folder in folder_data:
+                     h=open("../"+folder+'/setting/header.py','r')
+                     print(h.read(),file=exe)
+                     h.close()
              print("----concate main----")
              print('#----------main----------\n',file=exe)
              main=open('scripts/'+self.target_main,'r')
@@ -98,23 +103,24 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
              main.close()
              print("----concate footer----")
              print('#----------footer----------\n',file=exe)
+             with open('temp.txt','r') as temp:
+                 folder_data=temp.readlines()
+                 for folder in folder_data:
+                     f=open("../"+folder+'/setting/footer.py','r')
+                     print(f.read(),file=exe)
+                     f.close()
              file_list=glob.glob('scripts/footer/'+'*.py')
              for file in file_list:
                  f=open(file,'r')
                  print(f.read(),file=exe)
                  f.close()
-                 
              
      def reset_robot(self):
          self.proc = sp.Popen(['python3', 'scripts/'+self.target_end])
-         #pi = pigpio.pi()
-         #servo_pin1 = 18                      #thetaのモータGPIOピン設定
-         #servo_pin2 = 19                      #th1のモータGPIOピン設定
-         #servo_pin3 = 16                      #th2のモータGPIOピン設定
-         #pi.set_mode(servo_pin1, pigpio.INPUT)
-         #pi.set_mode(servo_pin2, pigpio.INPUT)
-         #pi.set_mode(servo_pin3, pigpio.INPUT)
-         #pi.stop()
+         with open('temp.txt','r') as temp:
+             folder_data=temp.readlines()
+             for folder in folder_data:
+                 self.proc = sp.Popen(['python3', '../'+folder+'/setting/reset.py'])
          print("reset completed")
 
      def action_by_status(self,filename):

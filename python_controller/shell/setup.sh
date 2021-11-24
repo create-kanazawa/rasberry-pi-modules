@@ -4,7 +4,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
-if [ -e $FTP_CONFIG_TRGET];then
+if [ ! -e $FTP_CONFIG_TRGET ];then
 	sudo cp $FTP_CONFIG_TRGET $FTP_CONFIG_TRGET'-default'
 	TIME=$(date)
 	echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
@@ -80,3 +80,19 @@ if [ ! -d $FTP_START_DIR ];then
 	echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
 fi
 
+######set up this robot
+echo '-----------setup header file for robot-----------'
+echo 'please select this robot folder...'
+cd ${SCRIPT_DIR}/../
+select VAR in exit robot_arm wheel_robot
+do 
+	echo 'your selected item is '$VAR
+	if [ $VAR = 'exit' ];then
+		break
+	else
+		echo $VAR>>temp.txt
+	fi
+done
+
+
+echo 'complete the set up proccess'
