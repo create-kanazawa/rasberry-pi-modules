@@ -1,5 +1,6 @@
 python_controller/scripts/*.py
 temp*
+servo_function.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
