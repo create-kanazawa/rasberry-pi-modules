@@ -17,9 +17,9 @@ if __name__ == "__main__":
      #このpythonファイルが存在するパスを取得する
      this_path = os.path.dirname(os.path.abspath(__file__))
      # this_path = "/var/www"
-     print("waiting path for FTP is :",this_path)
      # 監視対象ディレクトリを指定する
      target_dir=this_path + "/scripts/"
+     print("waiting path for FTP is :",target_dir)
      #print(target_dir)
      # # 監視対象ファイルのパターンマッチを指定する
      target_file = '*.py'

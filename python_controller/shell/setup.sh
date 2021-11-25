@@ -82,7 +82,7 @@ fi
 
 ######set up this robot
 echo '-----------setup header file for robot-----------'
-echo 'please select this robot folder...'
+echo 'please select this header folder...'
 cd ${SCRIPT_DIR}/../
 select VAR in exit robot_arm wheel_robot
 do 
@@ -90,9 +90,10 @@ do
 	if [ $VAR = 'exit' ];then
 		break
 	else
-		echo $VAR>>temp.txt
+		echo -n $VAR>>temp.txt
 	fi
 done
 
 
 echo 'complete the set up proccess'
+
