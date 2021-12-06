@@ -6,12 +6,21 @@ recieve_port=60000
 client=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 server=socket.socket(socket.AF_INET,type=socket.SOCK_DGRAM)
 server.bind(('',recieve_port))
+server.setblocking(False)
+recieve_message = ''
+#server.settimeout(0.1)
 
 
 def recieve_data():
+    global recieve_message
     print('wait for data...')
-    rx_message,addr=server.recvfrom(M_SIZE)
-    return rx_message.decode('utf-8')
+    while True:
+        try:
+            rx_message,addr=server.recvfrom(M_SIZE)
+            recieve_message = rx_message.decode('utf-8')
+        except:
+            break
+    return recieve_message
 
 #send block --> input IP and message
 #message='abcedf'
