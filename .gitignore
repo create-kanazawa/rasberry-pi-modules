@@ -2,6 +2,7 @@
 robot_arm/setting/header/*.py
 
 temp*
+*.log
 servo_function.py
 
 # Byte-compiled / optimized / DLL files
