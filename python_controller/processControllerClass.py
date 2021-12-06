@@ -81,7 +81,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
              print("")
      def make_execution_file(self):
          with open('scripts/'+self.target_exec,'w') as exe:
-             print('print(\'start main file...\')',file=exe)
+             print('#main file',file=exe)
          with open('scripts/'+self.target_exec,'a') as exe:
              print('#----------header----------\n',file=exe)
              print("----concate header----")
@@ -90,9 +90,17 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
                  h=open(file,'r')
                  print(h.read(),file=exe)
                  h.close()
+             #add header of each setting/folder
              with open('temp.txt','r') as temp:
                  folder_data=temp.readlines()
                  for folder in folder_data:
+                     #add header of each setting/header directory
+                     file_list=glob.glob('../'+folder+'/setting/header/'+'*.py')
+                     for file in file_list:
+                         h=open(file,'r')
+                         print(h.read(),file=exe)
+                         h.close()
+                     #add header of each setting/header.py
                      h=open("../"+folder+'/setting/header.py','r')
                      print(h.read(),file=exe)
                      h.close()

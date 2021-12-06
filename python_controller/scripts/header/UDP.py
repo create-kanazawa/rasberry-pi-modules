@@ -1,4 +1,5 @@
 #-----------------------UDP header-----------------------
+from __future__ import division
 import socket
 M_SIZE=1024
 recieve_port=60000

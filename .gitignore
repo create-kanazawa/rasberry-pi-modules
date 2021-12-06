@@ -1,4 +1,6 @@
-python_controller/scripts/*.py
+#python_controller/scripts/*.py
+robot_arm/setting/header/*.py
+
 temp*
 servo_function.py
 
