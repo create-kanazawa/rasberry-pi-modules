@@ -70,9 +70,16 @@ sudo ufw reload
 ######set autostart file
 echo '-----------setup auto start file-----------'
 TARGET_SHELL=start_communication.sh
+
 ### auto start setup CUI version
-command=$SCRIPT_DIR/$TARGET_SHELL'&>'$SCRIPT_DIR/../output.log
-sudo echo $command | sudo tee -a /etc/rc.local>/dev/null
+AUTO_SHELL=/etc/rc.local
+if [ ! -d $AUTO_SHELL'-default' ];then
+	sudo cp $AUTO_SHELL $AUTO_SHELL'-default'
+	sudo sed -i '/exit 0/d' $AUTO_SHELL
+	command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log &
+	sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
+	sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
+fi
 
 ###auto start setup for GUI version
 #FTP_START_TARGET=ftp_start.desktop
