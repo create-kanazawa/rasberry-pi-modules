@@ -10,4 +10,4 @@ sleep 5
 git pull
 
 #execute FTP
-python3 $SCRIPT_DIR/../processControlMain.py &
+python3 $SCRIPT_DIR/../processControlMain.py
