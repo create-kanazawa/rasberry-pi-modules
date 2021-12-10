@@ -15,7 +15,7 @@ from subprocess import PIPE
 import os
 import time
 import sys
-import pigpio
+#import pigpio
 import glob
 
 # PatternMatchingEventHandler の継承クラスを作成
