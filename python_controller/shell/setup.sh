@@ -25,6 +25,8 @@ sudo service vsftpd start #FTPサーバの再起動
 
 #####pipでファイル管理モジュールwatchdogをインストール(python2.7はバージョン1.0.0以下を指定)
 echo '-----------install watchdog-----------'
+sudo apt-get install python-pip
+sudo apt-get install python-pip3
 pip install watchdog==0.10.6
 pip3 install watchdog
 
