@@ -33,6 +33,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
      target_reset = 'reset.py'
      target_exec = 'execute.py'
      proc = []
+     path=''
 
      # クラス初期化
      def __init__(self, patterns):
@@ -47,6 +48,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
      # ファイル変更時のイベント
      def on_modified(self, event):
          filepath = event.src_path
+         #path=filepath
          filename = os.path.basename(filepath)
          self.action_by_status(filename)
          print('%s changed' % filename)
@@ -71,7 +73,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
      def start_main_process(self):
          print("start the main process")
          self.make_execution_file()
-         self.proc = sp.Popen(['python3', 'scripts/'+self.target_exec])
+         self.proc = sp.Popen(['python3', self.path+self.target_exec])
          print("subprocess ID:")
 
      def stop_main_process(self):
@@ -80,55 +82,56 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
          except:
              print("")
      def make_execution_file(self):
-         with open('scripts/'+self.target_exec,'w') as exe:
+         print("self.path:",self.path)
+         with open(self.path+self.target_exec,'w') as exe:
              print('#main file',file=exe)
-         with open('scripts/'+self.target_exec,'a') as exe:
+         with open(self.path+self.target_exec,'a') as exe:
              print('#----------header----------\n',file=exe)
              print("----concate header----")
-             file_list=glob.glob('scripts/header/'+'*.py')
+             file_list=glob.glob(self.path+'header/'+'*.py')
              for file in file_list:
                  h=open(file,'r')
                  print(h.read(),file=exe)
                  h.close()
              #add header of each setting/folder
-             with open('temp.txt','r') as temp:
+             with open(self.path+'../temp.txt','r') as temp:
                  folder_data=temp.readlines()
                  for folder in folder_data:
                      #add header of each setting/header directory
-                     file_list=glob.glob('../'+folder+'/setting/header/'+'*.py')
+                     file_list=glob.glob(self.path+'../../'+folder+'/setting/header/'+'*.py')
                      for file in file_list:
                          h=open(file,'r')
                          print(h.read(),file=exe)
                          h.close()
                      #add header of each setting/header.py
-                     h=open("../"+folder+'/setting/header.py','r')
+                     h=open(self.path+"../../"+folder+'/setting/header.py','r')
                      print(h.read(),file=exe)
                      h.close()
              print("----concate main----")
              print('#----------main----------\n',file=exe)
-             main=open('scripts/'+self.target_main,'r')
+             main=open(self.path+self.target_main,'r')
              print(main.read(),file=exe)
              main.close()
              print("----concate footer----")
              print('#----------footer----------\n',file=exe)
-             with open('temp.txt','r') as temp:
+             with open(self.path+'../temp.txt','r') as temp:
                  folder_data=temp.readlines()
                  for folder in folder_data:
-                     f=open("../"+folder+'/setting/footer.py','r')
+                     f=open(self.path+"../../"+folder+'/setting/footer.py','r')
                      print(f.read(),file=exe)
                      f.close()
-             file_list=glob.glob('scripts/footer/'+'*.py')
+             file_list=glob.glob(self.path+'footer/'+'*.py')
              for file in file_list:
                  f=open(file,'r')
                  print(f.read(),file=exe)
                  f.close()
              
      def reset_robot(self):
-         self.proc = sp.Popen(['python3', 'scripts/'+self.target_end])
+         self.proc = sp.Popen(['python3', filepath+self.target_end])
          with open('temp.txt','r') as temp:
              folder_data=temp.readlines()
              for folder in folder_data:
-                 self.proc = sp.Popen(['python3', '../'+folder+'/setting/reset.py'])
+                 self.proc = sp.Popen(['python3', filepath+'../'+folder+'/setting/reset.py'])
          print("reset completed")
 
      def action_by_status(self,filename):

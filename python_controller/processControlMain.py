@@ -25,6 +25,7 @@ if __name__ == "__main__":
      target_file = '*.py'
      # ファイル監視の開始
      event_handler = ProcessHandlerByFTP([target_file])
+     event_handler.path=target_dir
      observer = Observer()
      observer.schedule(event_handler, target_dir, recursive=True)
      observer.start()
