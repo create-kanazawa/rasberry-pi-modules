@@ -67,20 +67,24 @@ sudo ufw reload
 
 ######set autostart file
 echo '-----------setup auto start file-----------'
-#cd ~/.config
-FTP_START_TARGET=ftp_start.desktop
 TARGET_SHELL=start_communication.sh
-FTP_START_DIR=~/.config/autostart
-if [ ! -d $FTP_START_DIR ];then
-	mkdir $FTP_START_DIR 
-	cd $_
-	touch $FTP_START_TARGET
-	echo '[Desktop Entry]' | sudo tee -a $FTP_START_TARGET>/dev/null
-	echo 'Exec=lxterminal -e '$SCRIPT_DIR'/../shell/'$TARGET_SHELL | sudo tee -a $FTP_START_TARGET>/dev/null
-	echo 'Type=Application' | sudo tee -a $FTP_START_TARGET>/dev/null
-	echo 'Name=FTP_server' | sudo tee -a $FTP_START_TARGET>/dev/null
-	echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
-fi
+### auto start setup CUI version
+command=$(SCRIPT_DIR)/$(TARGET_SHELL)&>$(SCRIPT_DIR)/../output.log
+echo $command | sudo tee -a /etc/rc.local>/dev/null
+
+###auto start setup for GUI version
+#FTP_START_TARGET=ftp_start.desktop
+#FTP_START_DIR=~/.config/autostart
+#if [ ! -d $FTP_START_DIR ];then
+#	mkdir $FTP_START_DIR 
+#	cd $_
+#	touch $FTP_START_TARGET
+#	echo '[Desktop Entry]' | sudo tee -a $FTP_START_TARGET>/dev/null
+#	echo 'Exec=lxterminal -e '$SCRIPT_DIR'/../shell/'$TARGET_SHELL | sudo tee -a $FTP_START_TARGET>/dev/null
+#	echo 'Type=Application' | sudo tee -a $FTP_START_TARGET>/dev/null
+#	echo 'Name=FTP_server' | sudo tee -a $FTP_START_TARGET>/dev/null
+#	echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
+#fi
 
 ######set up this robot
 echo '-----------setup header file for robot-----------'
