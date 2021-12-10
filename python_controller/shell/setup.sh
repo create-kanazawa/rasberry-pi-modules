@@ -4,18 +4,18 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 echo '-----------install vsftpd-----------'
 sudo apt install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
-if [ ! -e $FTP_CONFIG_TRGET ];then
+if [ ! -e $FTP_CONFIG_TRGET'-default' ];then
 	sudo cp $FTP_CONFIG_TRGET $FTP_CONFIG_TRGET'-default'
-	TIME=$(date)
-	echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	echo 'write_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	echo 'local_umask=022' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	echo 'ascii_upload_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	echo 'ascii_download_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
-	cat $FTP_CONFIG_TRGET
-	sudo service vsftpd start #FTPサーバの再起動
 fi
+TIME=$(date)
+echo "#-----------change by setup.bash: "$TIME"-----------" | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'local_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'write_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'local_umask=022' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'ascii_upload_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+echo 'ascii_download_enable=YES' | sudo tee -a $FTP_CONFIG_TRGET>/dev/null
+cat $FTP_CONFIG_TRGET
+sudo service vsftpd start #FTPサーバの再起動
 
 #####ショートカット用bashファイルの作成
 #echo '-----------install vsftpd-----------'
