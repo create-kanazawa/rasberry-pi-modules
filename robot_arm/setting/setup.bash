@@ -33,4 +33,4 @@ sudo apt-get install python3-pip
 sudo apt-get install git git-core
 sudo pip install adafruit-pca9685
 #########
-echo 'dtparam=i2c_baudrate=10000' | sudo tee -a /boot/config.txt>/dev/null
+#echo 'dtparam=i2c_baudrate=10000' | sudo tee -a /boot/config.txt>/dev/null
