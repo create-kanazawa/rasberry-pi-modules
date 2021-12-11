@@ -1,11 +1,11 @@
 #!/bin/bash
 ########固定IPアドレスの設定を行う
 #端末からIPアドレスを指定する
-echo -n 'please input IP address (ex: 192.168.100.***):' 
+echo 'please input IP address (ex: 192.168.100.***):' 
 #入力を受付、その入力を「str」に代入
 read ip 
 #結果を表示
-echo IP address is set to $ip
+echo 'IP address is set to '$ip
 #設定ファイルに書き込みする
 TARGET_CONF=/etc/dhcpcd.conf
 echo 'interface wlan0' | sudo tee -a TARGET_CONF>/dev/null
