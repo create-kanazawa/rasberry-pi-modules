@@ -12,10 +12,12 @@ TARGET_CONF=/etc/dhcpcd.conf
 if [ ! -e $TARGET_CONF'-default' ];then
 	sudo cp $TARGET_CONF $TARGET_CONF'-default'
 fi
-sudo echo 'interface wlan0' | sudo tee -a $TARGET_CONF>/dev/null
-sudo echo 'static ip_address='$ip'/24' | sudo tee -a $TARGET_CONF>/dev/null
-sudo echo 'static routers=192.168.100.1' | sudo tee -a $TARGET_CONF>/dev/null
-sudo echo 'static domain_name_servers=192.168.100.1' | sudo tee -a $TARGET_CONF>/dev/null
+TIME=$(date)
+echo "#-----------change by setup.bash: "$TIME"-----------">>$FTP_CONFIG_TRGET
+sudo echo 'interface wlan0'>>$TARGET_CONF
+sudo echo 'static ip_address='$ip'/24'>>$TARGET_CONF
+sudo echo 'static routers=192.168.100.1'>>$TARGET_CONF
+sudo echo 'static domain_name_servers=192.168.100.1'>>$TARGET_CONF
 
 #########I2C通信の設定
 sudo raspi-config nonint do_i2c 0
