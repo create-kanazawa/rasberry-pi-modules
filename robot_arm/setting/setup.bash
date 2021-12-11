@@ -8,10 +8,10 @@ read ip
 echo 'IP address is set to '$ip
 #設定ファイルに書き込みする
 TARGET_CONF=/etc/dhcpcd.conf
-echo 'interface wlan0' | sudo tee -a TARGET_CONF>/dev/null
-echo 'static ip_address='$ip | sudo tee -a TARGET_CONF>/dev/null
-echo 'static routers=192.168.100.1' | sudo tee -a TARGET_CONF>/dev/null
-echo 'static domain_name_servers=192.168.100.1' | sudo tee -a TARGET_CONF>/dev/null
+sudo echo 'interface wlan0' | sudo tee -a TARGET_CONF>/dev/null
+sudo echo 'static ip_address='$ip | sudo tee -a TARGET_CONF>/dev/null
+sudo echo 'static routers=192.168.100.1' | sudo tee -a TARGET_CONF>/dev/null
+sudo echo 'static domain_name_servers=192.168.100.1' | sudo tee -a TARGET_CONF>/dev/null
 
 #########I2C通信の設定
 sudo raspi-config nonint do_i2c 0
