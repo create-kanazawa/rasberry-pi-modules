@@ -10,7 +10,7 @@ echo 'IP address is set to '$ip
 #設定ファイルに書き込みする
 TARGET_CONF=/etc/dhcpcd.conf
 sudo echo 'interface wlan0' | sudo tee -a $TARGET_CONF>/dev/null
-sudo echo 'static ip_address='$ip | sudo tee -a $TARGET_CONF>/dev/null
+sudo echo 'static ip_address='$ip'/24' | sudo tee -a $TARGET_CONF>/dev/null
 sudo echo 'static routers=192.168.100.1' | sudo tee -a $TARGET_CONF>/dev/null
 sudo echo 'static domain_name_servers=192.168.100.1' | sudo tee -a $TARGET_CONF>/dev/null
 
