@@ -1,5 +1,5 @@
 #!/bin/bash
-########固定IPアドレスの設定を行う
+#########固定IPアドレスの設定を行う
 sudo sh -c 'echo 127.0.1.1 $(hostname) >> /etc/hosts'
 #端末からIPアドレスを指定する
 echo 'please input IP address (ex: 192.168.100.***):' 
