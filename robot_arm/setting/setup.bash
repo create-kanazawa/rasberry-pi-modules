@@ -1,13 +1,13 @@
 #!/bin/bash
 #########
-sudo sh -c 'echo 127.0.1.1 $(hostname) >> /etc/hosts'
+#sudo sh -c 'echo 127.0.1.1 $(hostname) >> /etc/hosts'
 #
 #echo 'please input IP address (ex. 192.168.100.***)'
 #
 #str='A'
-#read str
+#read ip
 #
-#echo 'IP address is set to '$str
+#echo 'IP address is set to '$ip
 #
 TARGET_CONF=/etc/dhcpcd.conf
 #if [ ! -e $TARGET_CONF'-default' ];then
