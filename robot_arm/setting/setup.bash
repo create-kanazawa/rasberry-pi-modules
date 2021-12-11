@@ -2,7 +2,7 @@
 #########
 sudo sh -c 'echo 127.0.1.1 $(hostname) >> /etc/hosts'
 #
-echo 'please input IP address (ex: 192.168.100.***)'
+echo 'please input IP address (ex. 192.168.100.***)'
 #
 read ip
 #
