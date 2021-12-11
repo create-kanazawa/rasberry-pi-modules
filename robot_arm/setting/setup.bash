@@ -9,13 +9,14 @@ read ip
 echo 'IP address is set to '$ip
 #
 TARGET_CONF=/etc/dhcpcd.conf
-if [ ! -e $TARGET_CONF'-default' ];then
-	sudo cp $TARGET_CONF $TARGET_CONF'-default'
-fi
+#if [ ! -e $TARGET_CONF'-default' ];then
+#	sudo cp $TARGET_CONF $TARGET_CONF'-default'
+#fi
 TIME=$(date)
 echo "#-----------change by setup.bash: "$TIME"-----------">>$FTP_CONFIG_TRGET
 sudo echo 'interface wlan0'>>$TARGET_CONF
-sudo echo 'static ip_address='$ip'/24'>>$TARGET_CONF
+#sudo echo 'static ip_address='$ip'/24'>>$TARGET_CONF
+sudo echo 'static ip_address=192.168.100.140/24'>>$TARGET_CONF
 sudo echo 'static routers=192.168.100.1'>>$TARGET_CONF
 sudo echo 'static domain_name_servers=192.168.100.1'>>$TARGET_CONF
 
