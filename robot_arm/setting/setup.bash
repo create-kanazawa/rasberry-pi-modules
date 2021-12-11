@@ -28,11 +28,11 @@ sudo raspi-config nonint do_spi 0
 sudo raspi-config nonint do_hostname steam-lab-99
 
 #########
-sudo apt-get -y install python3-numpy
-sudo apt-get -y install python3-setuptools
-sudo apt-get -y install python3-pip
-sudo apt-get -y install python3-pip
-sudo apt-get -y install git git-core
+sudo apt-get install python3-numpy
+sudo apt-get install python3-setuptools
+sudo apt-get install python3-pip
+sudo apt-get install python3-pip
+sudo apt-get install git git-core
 sudo pip -y install adafruit-pca9685
 
 #########
