@@ -72,28 +72,28 @@ echo '-----------setup auto start file-----------'
 TARGET_SHELL=start_communication.sh
 
 ### auto start setup CUI version
-AUTO_SHELL=/etc/rc.local
-if [ ! -d $AUTO_SHELL'-default' ];then
-	sudo cp $AUTO_SHELL $AUTO_SHELL'-default'
-	sudo sed -i '/exit 0/d' $AUTO_SHELL
-	command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log' &'
-	sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
-	sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
-fi
+#AUTO_SHELL=/etc/rc.local
+#if [ ! -d $AUTO_SHELL'-default' ];then
+#	sudo cp $AUTO_SHELL $AUTO_SHELL'-default'
+#	sudo sed -i '/exit 0/d' $AUTO_SHELL
+#	command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log' &'
+#	sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
+#	sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
+#fi
 
 ###auto start setup for GUI version
-#FTP_START_TARGET=ftp_start.desktop
-#FTP_START_DIR=~/.config/autostart
-#if [ ! -d $FTP_START_DIR ];then
-#	mkdir $FTP_START_DIR 
-#	cd $_
-#	touch $FTP_START_TARGET
-#	echo '[Desktop Entry]' | sudo tee -a $FTP_START_TARGET>/dev/null
-#	echo 'Exec=lxterminal -e '$SCRIPT_DIR'/../shell/'$TARGET_SHELL | sudo tee -a $FTP_START_TARGET>/dev/null
-#	echo 'Type=Application' | sudo tee -a $FTP_START_TARGET>/dev/null
-#	echo 'Name=FTP_server' | sudo tee -a $FTP_START_TARGET>/dev/null
-#	echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
-#fi
+FTP_START_TARGET=ftp_start.desktop
+FTP_START_DIR=~/.config/autostart
+if [ ! -d $FTP_START_DIR ];then
+	mkdir $FTP_START_DIR 
+	cd $_
+	touch $FTP_START_TARGET
+	echo '[Desktop Entry]' | sudo tee -a $FTP_START_TARGET>/dev/null
+	echo 'Exec=lxterminal -e '$SCRIPT_DIR'/../shell/'$TARGET_SHELL | sudo tee -a $FTP_START_TARGET>/dev/null
+	echo 'Type=Application' | sudo tee -a $FTP_START_TARGET>/dev/null
+	echo 'Name=FTP_server' | sudo tee -a $FTP_START_TARGET>/dev/null
+	echo 'Terminal=true' | sudo tee -a $FTP_START_TARGET>/dev/null
+fi
 
 ######set up this robot
 echo '-----------setup header file for robot-----------'
