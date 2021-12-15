@@ -9,8 +9,8 @@ echo 'waiting for git update...'
 _IP=$(hostname -I) || true
 while [ ! "$_IP" ] 
 do
-sleep 1
-_IP=$(hostname -I) || true
+  sleep 1
+  _IP=$(hostname -I) || true
 done
 
 if [ "$_IP" ]; then
