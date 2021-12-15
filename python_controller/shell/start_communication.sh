@@ -6,8 +6,11 @@ echo "LOG is start from:"$TIME"-----------"
 
 #sync git
 echo 'waiting for git update...'
-sleep 5
 _IP=$(hostname -I) || true
+while [ ! "$_IP" ] do
+sleep 1
+_IP=$(hostname -I) || true
+done
 if [ "$_IP" ]; then
   echo $_IP
 fi
