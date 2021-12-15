@@ -99,6 +99,9 @@ fi
 echo '-----------setup header file for robot-----------'
 echo 'please select this header folder...'
 cd ${SCRIPT_DIR}/../
+if [ -e temp.txt ];then
+	rm temp.txt
+fi
 select VAR in exit robot_arm wheel_robot
 do 
 	echo 'your selected item is '$VAR
