@@ -7,12 +7,14 @@ echo "LOG is start from:"$TIME"-----------"
 #sync git
 echo 'waiting for git update...'
 _IP=$(hostname -I) || true
-while [ ! "$_IP" ] 
+wget -q --spider http://google.com
+while [ $? -eq 0 ] 
 do
   sleep 1
-  _IP=$(hostname -I) || true
+  wget -q --spider http://google.com
 done
 
+  _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
   echo $_IP
 fi
