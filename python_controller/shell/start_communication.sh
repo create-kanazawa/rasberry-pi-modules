@@ -18,6 +18,7 @@ done
 if [ "$_IP" ]; then
   echo $_IP
 fi
+cd ${SCRIPT_DIR}/../
 git pull
 
 #execute FTP
