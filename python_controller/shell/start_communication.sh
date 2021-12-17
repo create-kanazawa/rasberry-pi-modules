@@ -11,6 +11,7 @@ _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
   echo $_IP
 fi
+cd ${SCRIPT_DIR}/../
 git pull
 
 #execute FTP
