@@ -127,11 +127,11 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
                  f.close()
              
      def reset_robot(self):
-         self.proc = sp.Popen(['python3', filepath+self.target_end])
+         self.proc = sp.Popen(['python3', self.filepath+self.target_end])
          with open('temp.txt','r') as temp:
              folder_data=temp.readlines()
              for folder in folder_data:
-                 self.proc = sp.Popen(['python3', filepath+'../'+folder+'/setting/reset.py'])
+                 self.proc = sp.Popen(['python3', self.filepath+'../'+folder+'/setting/reset.py'])
          print("reset completed")
 
      def action_by_status(self,filename):
