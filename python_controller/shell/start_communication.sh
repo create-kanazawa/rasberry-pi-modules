@@ -14,5 +14,5 @@ fi
 cd ${SCRIPT_DIR}/../
 git pull
 
-#execute FTP
+###execute FTP
 python3 $SCRIPT_DIR/../processControlMain.py
