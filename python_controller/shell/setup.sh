@@ -83,7 +83,7 @@ TARGET_SHELL=start_communication.sh
 
 ###auto start setup for GUI version
 FTP_START_TARGET=ftp_start.desktop
-FTP_START_DIR=~/.config/autostart
+FTP_START_DIR=/home/pi/.config/autostart
 if [ ! -d $FTP_START_DIR ];then
 	mkdir $FTP_START_DIR 
 	cd $_
