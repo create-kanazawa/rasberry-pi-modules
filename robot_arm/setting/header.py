@@ -42,7 +42,7 @@ def servo1(dh, delta_th):
     pwm.set_pwm(channel, 0, PtoD)
     
     time.sleep(abs(DELTA_TIME*dh/DH))
-    print(CURRENT_TH)
+    #print(CURRENT_TH)
     
 def servo2(dh, delta_th):
     CURRENT_TH[1] += np.sign(delta_th) * dh
@@ -53,7 +53,7 @@ def servo2(dh, delta_th):
     pwm.set_pwm(channel, 0, PtoD)
     
     time.sleep(abs(DELTA_TIME*dh/DH))
-    print(CURRENT_TH)
+    #print(CURRENT_TH)
     
 def servo3(dh, delta_th):
     CURRENT_TH[2] += np.sign(delta_th) * dh
@@ -64,7 +64,7 @@ def servo3(dh, delta_th):
     pwm.set_pwm(channel, 0, PtoD)
     
     time.sleep(abs(DELTA_TIME*dh/DH))
-    print(CURRENT_TH)
+    #print(CURRENT_TH)
 
 def servo_angle1(angle):
     servo_angle(angle, CURRENT_TH[1], CURRENT_TH[2])
