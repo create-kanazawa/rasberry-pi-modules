@@ -131,7 +131,7 @@ class ProcessHandlerByFTP(PatternMatchingEventHandler):
          with open('temp.txt','r') as temp:
              folder_data=temp.readlines()
              for folder in folder_data:
-                 self.proc = sp.Popen(['python3', self.path+'../'+folder+'/setting/reset.py'])
+                 self.proc = sp.Popen(['python3', self.path+'../../'+folder+'/setting/reset.py'])
          print("reset completed")
 
      def action_by_status(self,filename):
