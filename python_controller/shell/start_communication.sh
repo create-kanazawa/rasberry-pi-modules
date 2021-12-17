@@ -10,6 +10,7 @@ sleep 5
 _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
   echo $_IP
+fi
 git pull
 
 #execute FTP
