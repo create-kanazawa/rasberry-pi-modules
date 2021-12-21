@@ -1,5 +1,7 @@
 #!/bin/sh
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
+expect_message_key_password="Enter passphrase for key '/home/pi/.ssh/id_rsa': "
+password="robotics"
 
 TIME=$(date)
 echo "LOG is start from:"$TIME"-----------"
@@ -19,7 +21,12 @@ if [ "$_IP" ]; then
   echo $_IP
 fi
 cd ${SCRIPT_DIR}/../
-git pull
-
+expect -c "
+        set timeout 2
+        spawn git pull
+        expect \"${expect_message_key_password}\"
+        send \"${password}\n\"
+        interact
+"
 #execute FTP
 python3 $SCRIPT_DIR/../processControlMain.py
