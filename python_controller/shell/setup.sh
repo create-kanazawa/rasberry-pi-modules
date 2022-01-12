@@ -28,7 +28,7 @@ echo '-----------install watchdog-----------'
 #sudo apt-get install python-pip
 #sudo apt-get install python3-pip
 #pip install watchdog==0.10.6
-pip3 install watchdog
+sudo pip3 install watchdog
 
 ######PHP server setup
 #sudo apt update
