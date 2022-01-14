@@ -2,7 +2,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 #####FTPサーバ Vsftpd環境の作成
 echo '-----------install vsftpd-----------'
-sudo apt install vsftpd #FTPサーバのインストール
+sudo apt -y install vsftpd #FTPサーバのインストール
 FTP_CONFIG_TRGET=/etc/vsftpd.conf
 if [ ! -e $FTP_CONFIG_TRGET'-default' ];then
 	sudo cp $FTP_CONFIG_TRGET $FTP_CONFIG_TRGET'-default'
@@ -58,7 +58,7 @@ sudo chmod -R 777 $SCRIPT_DIR/../scripts/
 
 ######setup UDP port
 echo '-----------setup UDP port-----------'
-sudo apt install ufw
+sudo apt -y install ufw
 #sudo ufw allow 22
 #sudo ufw allow 21
 #sudo ufw allow 60000
