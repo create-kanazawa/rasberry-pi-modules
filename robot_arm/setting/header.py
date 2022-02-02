@@ -160,13 +160,13 @@ def detect_color():
         time.sleep(0.01)
     
     ave = val / 10
-    if 0.15 < ave < 0.3:
+    if 0.05 < ave < 0.4:
         col = "black"#black
     
-    elif 0.4 < ave < 0.5:
-        col = "plane"#sponji
+    #elif 0.4 < ave < 0.5:
+        #col = "plane"#sponji
         
-    elif 0.6 < ave < 1:
+    elif 0.6 < ave < 1.5:
         col = "white"#white
         
     return col
