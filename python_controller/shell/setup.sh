@@ -79,6 +79,8 @@ if [ ! -e $AUTO_SHELL'-default' ];then
 	command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log' &'
 	sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
 	sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
+else
+	echo 'default file is already exist. skip.'
 fi
 
 
