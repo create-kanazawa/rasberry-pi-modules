@@ -75,11 +75,11 @@ TARGET_SHELL=start_communication.sh
 AUTO_SHELL=/etc/rc.local
 if [ ! -e $AUTO_SHELL'-default' ];then
 	sudo cp $AUTO_SHELL $AUTO_SHELL'-default'
+	sudo sed -i '/exit 0/d' $AUTO_SHELL
+	command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log' &'
+	sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
+	sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
 fi
-sudo sed -i '/exit 0/d' $AUTO_SHELL
-command=$SCRIPT_DIR/$TARGET_SHELL'>'$SCRIPT_DIR/../output.log' &'
-sudo echo $command | sudo tee -a $AUTO_SHELL>/dev/null
-sudo echo 'exit 0' | sudo tee -a $AUTO_SHELL>/dev/null
 
 
 ###auto start setup for GUI version
