@@ -10,11 +10,11 @@ echo "LOG is start from:"$TIME"-----------"
 echo 'waiting for git update...'
 _IP=$(hostname -I) || true
 wget -q --spider https://github.com
-#while [ $? -ne 0 ] 
-#do
-  #sleep 1
-  #wget -q --spider https://github.com
-#done
+while [ $? -ne 0 ] 
+do
+  sleep 1
+  wget -q --spider https://github.com
+done
 
  _IP=$(hostname -I) || true
 if [ "$_IP" ]; then
