@@ -18,6 +18,7 @@ do
   count=`expr $count + 1`
   if [ $count -eq 5 ]; then
     break
+  fi
 done
 
  _IP=$(hostname -I) || true
