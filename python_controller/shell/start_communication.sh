@@ -16,6 +16,8 @@ do
   sleep 1
   wget -q --spider https://github.com
   count=`expr $count + 1`
+  echo 'count'
+  echo  $count
   if [ $count -eq 5 ]; then
     break
   fi
