@@ -170,6 +170,15 @@ def detect_color():
         col = "white"#white
         
     return col
+### new function ###
+def move_robot(i):
+    pass
+
+def move_conveyor():
+    time.sleep(5)
+
+def color_is(s):
+    return detect_color() == s
 
 initial_servo()
 OPEN_hand()
